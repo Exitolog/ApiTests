@@ -2,6 +2,7 @@ package by.sergey.belyakov.tests.project;
 
 import by.sergey.belyakov.dto.response.ProjectsResponseDto;
 import by.sergey.belyakov.tests.BaseTestApi;
+import io.qameta.allure.Description;
 import io.restassured.http.ContentType;
 import org.testng.annotations.Test;
 
@@ -15,6 +16,7 @@ import static org.testng.AssertJUnit.assertFalse;
 public class GetAllProjectsTest extends BaseTestApi {
 
 	@Test
+	@Description("Получение всех проектов в системе")
 	public void getAllProjects() {
 
 		List<ProjectsResponseDto> list = given()

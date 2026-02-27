@@ -1,6 +1,7 @@
 package by.sergey.belyakov.tests.auth;
 
 import by.sergey.belyakov.tests.BaseTestApi;
+import io.qameta.allure.Description;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Optional;
@@ -16,6 +17,7 @@ public class AuthSuccessTest extends BaseTestApi {
 
 	@Test
 	@Parameters({"login", "name", "id"})
+	@Description("Проверка авторизации пользователя с валидными данными")
 	public void checkAuthSuccess(
 			@Optional("admin") String loginTrue,
 			@Optional("admin") String nameTrue,

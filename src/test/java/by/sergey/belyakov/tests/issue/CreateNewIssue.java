@@ -3,12 +3,14 @@ package by.sergey.belyakov.tests.issue;
 import by.sergey.belyakov.dto.request.CreateIssueRequestDro;
 import by.sergey.belyakov.dto.response.IssuesResponseDto;
 import by.sergey.belyakov.tests.BaseTestApi;
+import io.qameta.allure.Description;
 import io.restassured.http.ContentType;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.testng.AssertJUnit.assertEquals;
+
 
 public class CreateNewIssue extends BaseTestApi {
 
@@ -21,6 +23,7 @@ public class CreateNewIssue extends BaseTestApi {
 	}
 
 	@Test(dataProvider = "IssueInfo")
+	@Description("Создание новой задачи с заданными параметрами")
 	public void createNewIssue(String header, String desription) {
 
 		CreateIssueRequestDro dto = CreateIssueRequestDro.builder()

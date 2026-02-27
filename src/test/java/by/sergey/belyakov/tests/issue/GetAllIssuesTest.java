@@ -2,6 +2,7 @@ package by.sergey.belyakov.tests.issue;
 
 import by.sergey.belyakov.dto.response.IssuesResponseDto;
 import by.sergey.belyakov.tests.BaseTestApi;
+import io.qameta.allure.Description;
 import io.restassured.http.ContentType;
 import org.testng.annotations.Test;
 
@@ -14,6 +15,7 @@ import static org.testng.AssertJUnit.assertFalse;
 public class GetAllIssuesTest extends BaseTestApi {
 
 	@Test
+	@Description("Получение списка всех задач")
 	public void checkYouTrack() {
 
 		List<IssuesResponseDto> list = given()

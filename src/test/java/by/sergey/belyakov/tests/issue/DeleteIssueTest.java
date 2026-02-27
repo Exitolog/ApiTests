@@ -2,6 +2,7 @@ package by.sergey.belyakov.tests.issue;
 
 import by.sergey.belyakov.dto.request.CreateIssueRequestDro;
 import by.sergey.belyakov.tests.BaseTestApi;
+import io.qameta.allure.Description;
 import io.restassured.http.ContentType;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -10,9 +11,11 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
+
 public class DeleteIssueTest extends BaseTestApi {
 
 	@Test
+	@Description("Создание и удаление задачи с заданными параметрами")
 	@Parameters({"header", "description"})
 	public void deleteIssue(@Optional("Заголовок такой-то") String baseHeader,
 		    				@Optional("Описание такое-то") String baseDescription) {
