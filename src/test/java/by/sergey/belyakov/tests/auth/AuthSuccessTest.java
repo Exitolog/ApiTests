@@ -1,44 +1,40 @@
 package by.sergey.belyakov.tests.auth;
 
+import by.sergey.belyakov.endpoints.AuthorizationUserInfoEndpoints;
 import by.sergey.belyakov.tests.BaseTestApi;
+import by.sergey.belyakov.utill.CsvReader;
+import by.sergey.belyakov.utill.FilePathList;
 import io.qameta.allure.Description;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.List;
 
-import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
 
 public class AuthSuccessTest extends BaseTestApi {
 
-	@Test
-	@Parameters({"login", "name", "id"})
+	@DataProvider(name = "BaseCredentialAuth", parallel = true)
+	public Object[][] dataProviderMethodForBaseCredentialsAuth() {
+		List<List<String>> csvData = CsvReader.getData(FilePathList.BASE_CREDENTIALS_AUTH_PATH);
+		Object[][] data = new Object[csvData.size()][];
+		for (int i = 0; i < csvData.size(); i++) {
+			List<String> row = csvData.get(i);
+			data[i] = row.toArray(new Object[0]);
+		}
+		return data;
+	}
+
+	@Test(dataProvider = "BaseCredentialAuth")
 	@Description("Проверка авторизации пользователя с валидными данными")
-	public void checkAuthSuccess(
-			@Optional("admin") String loginTrue,
-			@Optional("admin") String nameTrue,
-			@Optional("2-1") String idTrue) {
+	public void checkAuthSuccess(String expectedLogin, String expectedName, String expectedId) {
 
-		Response response = given()
-				.contentType(ContentType.JSON)
-				.when()
-				.queryParam("fields", "id,login,name,email")
-				.auth().oauth2(baseToken)
-				.get(baseUrl + "/api/users/me")
-				.then()
-				.log().ifError()
-				.extract().response();
+		Response response = AuthorizationUserInfoEndpoints.getAuthorizationUserInfo();
 
-		String login = response.jsonPath().getString("login");
-		String name = response.jsonPath().getString("name");
-		String id = response.jsonPath().getString("id");
-
-		assertEquals(loginTrue, login);
-		assertEquals(nameTrue, name);
-		assertEquals(idTrue, id);
+		assertEquals(expectedLogin, response.jsonPath().getString("login"));
+		assertEquals(expectedName, response.jsonPath().getString("name"));
+		assertEquals(expectedId, response.jsonPath().getString("id"));
 	}
 }

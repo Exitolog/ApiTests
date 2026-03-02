@@ -1,16 +1,15 @@
 package by.sergey.belyakov.tests.issue;
 
-import by.sergey.belyakov.dto.response.IssuesResponseDto;
+import by.sergey.belyakov.dto.response.IssueResponseDto;
+import by.sergey.belyakov.endpoints.IssueEndpoints;
 import by.sergey.belyakov.tests.BaseTestApi;
 import io.qameta.allure.Description;
-import io.restassured.http.ContentType;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertFalse;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 public class GetAllIssuesTest extends BaseTestApi {
 
@@ -18,15 +17,7 @@ public class GetAllIssuesTest extends BaseTestApi {
 	@Description("Получение списка всех задач")
 	public void checkYouTrack() {
 
-		List<IssuesResponseDto> list = given()
-				.contentType(ContentType.JSON)
-				.when().auth().oauth2(baseToken)
-				.queryParam("fields", "id,summary,description")
-				.get(baseUrl + "/api/issues")
-				.then()
-				.log().ifError()
-				.extract().jsonPath().getList("", IssuesResponseDto.class);
-
+		List<IssueResponseDto> list = IssueEndpoints.getAllIssues();
 		assertFalse(list.isEmpty());
 		assertEquals("Issue", list.getFirst().getType());
 	}

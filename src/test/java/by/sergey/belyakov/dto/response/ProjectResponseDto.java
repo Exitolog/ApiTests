@@ -6,15 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectsResponseDto {
+public class ProjectResponseDto {
 
 	private String shortName;
 	private String createdBy;

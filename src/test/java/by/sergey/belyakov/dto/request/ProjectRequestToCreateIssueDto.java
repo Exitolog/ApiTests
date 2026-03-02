@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class ProjectRequestToCresaateIssueDto {
+public class ProjectRequestToCreateIssueDto {
 	private String id;
 }

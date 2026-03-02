@@ -1,12 +1,18 @@
 package by.sergey.belyakov.tests;
 
 
-import by.sergey.belyakov.dto.request.ProjectRequestToCresaateIssueDto;
+import by.sergey.belyakov.dto.request.CreateIssueRequestDto;
+import by.sergey.belyakov.dto.request.ProjectRequestToCreateIssueDto;
 
 public class BaseTestApi {
 
-	protected final String baseToken = "perm-YWRtaW4=.NDItMQ==.6pDnSMi1jY2EF389nLIYzy4Ctpr2Ts";
-	protected final String baseUrl = "http://localhost:8080";
-	protected final ProjectRequestToCresaateIssueDto projectRequestToCresaateIssueDto = new ProjectRequestToCresaateIssueDto("0-0");
+	private final ProjectRequestToCreateIssueDto projectRequestToCreateIssueDto = new ProjectRequestToCreateIssueDto("0-0");
 
+	protected CreateIssueRequestDto getBaseCreateIssueRequestDto(String header, String description) {
+		return CreateIssueRequestDto.builder()
+				.summary(header)
+				.description(description)
+				.project(projectRequestToCreateIssueDto)
+				.build();
+	}
 }
