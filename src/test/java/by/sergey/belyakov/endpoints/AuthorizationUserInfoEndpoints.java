@@ -1,16 +1,16 @@
 package by.sergey.belyakov.endpoints;
 
+import by.sergey.belyakov.dto.response.UserInfoResponseDto;
 import by.sergey.belyakov.specifications.RequestSpecifications;
 import by.sergey.belyakov.specifications.ResponseSpecifications;
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
 public class AuthorizationUserInfoEndpoints {
 
 	@Step("Отправка GET запроса на получение информации о авторизованном пользователе")
-	public static Response getAuthorizationUserInfo() {
+	public static UserInfoResponseDto getAuthorizationUserInfo() {
 		 return given()
 				.spec(RequestSpecifications.specificationRequestForGetAuthorizationUserInfo())
 				.when()
@@ -18,6 +18,6 @@ public class AuthorizationUserInfoEndpoints {
 				.then()
 				.log().ifError()
 				.spec(ResponseSpecifications.baseSpecificationResponseWithStatus200())
-				.extract().response();
+				.extract().as(UserInfoResponseDto.class);
 	}
 }

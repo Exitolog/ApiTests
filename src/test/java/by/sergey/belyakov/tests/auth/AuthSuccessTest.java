@@ -1,11 +1,11 @@
 package by.sergey.belyakov.tests.auth;
 
+import by.sergey.belyakov.dto.response.UserInfoResponseDto;
 import by.sergey.belyakov.endpoints.AuthorizationUserInfoEndpoints;
 import by.sergey.belyakov.tests.BaseTestApi;
 import by.sergey.belyakov.utill.CsvReader;
 import by.sergey.belyakov.utill.FilePathList;
 import io.qameta.allure.Description;
-import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -31,10 +31,10 @@ public class AuthSuccessTest extends BaseTestApi {
 	@Description("Проверка авторизации пользователя с валидными данными")
 	public void checkAuthSuccess(String expectedLogin, String expectedName, String expectedId) {
 
-		Response response = AuthorizationUserInfoEndpoints.getAuthorizationUserInfo();
+		UserInfoResponseDto response = AuthorizationUserInfoEndpoints.getAuthorizationUserInfo();
 
-		assertEquals(expectedLogin, response.jsonPath().getString("login"));
-		assertEquals(expectedName, response.jsonPath().getString("name"));
-		assertEquals(expectedId, response.jsonPath().getString("id"));
+		assertEquals(expectedLogin, response.getLogin());
+		assertEquals(expectedName, response.getName());
+		assertEquals(expectedId, response.getId());
 	}
 }

@@ -18,7 +18,9 @@ public class GetAllProjectsTest extends BaseTestApi {
 	@Description("Получение всех проектов в системе")
 	public void getAllProjects() {
 		List<ProjectResponseDto> list = ProjectEndpoints.getAllProjects();
-		ProjectResponseDto firstProject = list.getFirst();
+		ProjectResponseDto firstProject = list.stream()
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("Список пуст"));
 		assertFalse(list.isEmpty());
 		assertEquals(firstProject.getName(), "Демопроект");
 	}

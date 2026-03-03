@@ -1,26 +1,22 @@
 package by.sergey.belyakov.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class ProjectResponseDto {
+@Builder
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserInfoResponseDto {
 
-	private String shortName;
-	private String createdBy;
+	private String login;
 	private String name;
 	private String id;
-	@JsonProperty("$type")
-	private String type;
 
 }
